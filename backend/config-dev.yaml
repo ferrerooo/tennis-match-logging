@@ -1,0 +1,26 @@
+env: development
+
+port: 8080
+
+db:
+  dsn: "host=localhost port=5432 user=tennis password=tennis123 dbname=tennis_matches sslmode=disable"
+  max-open-conns: 25
+  max-idle-conns: 25
+  max-idle-time: "15m"
+
+smtp:
+  host: "smtp.gmail.com"
+  port: 587
+  username: ""
+  password: ""
+  sender: "Tennis Match Logger <noreply@tennislogger.com>"
+
+cors:
+  trusted-origins:
+    - "http://localhost:3000"
+    - "http://localhost:8080"
+
+rate-limiter:
+  rps: 2
+  burst: 4
+  enabled: true

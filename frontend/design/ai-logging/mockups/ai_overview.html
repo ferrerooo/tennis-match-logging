@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tennis Logger - AI-First Zero Setup Overview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 50%, #45B7D1 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 50px 20px;
+            text-align: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 42px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .ai-badge {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+            animation: glow 3s ease-in-out infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 107, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(255, 107, 107, 0.6); }
+        }
+        
+        .subtitle {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        
+        .revolution-statement {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 25px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+        
+        .comparison-section {
+            background: white;
+            border-radius: 25px;
+            padding: 50px;
+            margin-bottom: 50px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-title {
+            font-size: 32px;
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+        }
+        
+        .comparison-card {
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .old-way {
+            background: #ffebee;
+            border: 2px solid #ef5350;
+        }
+        
+        .new-way {
+            background: #e8f5e8;
+            border: 2px solid #4CAF50;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .new-way::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(76, 175, 80, 0.1), transparent);
+            animation: shine 3s ease-in-out infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+        }
+        
+        .comparison-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .comparison-label {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .old-way .comparison-label {
+            color: #ef5350;
+        }
+        
+        .new-way .comparison-label {
+            color: #4CAF50;
+        }
+        
+        .comparison-steps {
+            text-align: left;
+            margin: 20px 0;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .step-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+        
+        .old-way .step-number {
+            background: #ef5350;
+            color: white;
+        }
+        
+        .new-way .step-number {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .comparison-time {
+            background: rgba(0,0,0,0.05);
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        
+        .old-way .comparison-time {
+            color: #ef5350;
+        }
+        
+        .new-way .comparison-time {
+            color: #4CAF50;
+        }
+        
+        .ai-features-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #FF6B6B, #4ECDC4, #45B7D1);
+        }
+        
+        .feature-icon {
+            font-size: 56px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .feature-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .feature-description {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .feature-benefits {
+            background: #f8f9ff;
+            border-radius: 10px;
+            padding: 15px;
+        }
+        
+        .feature-benefits ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .feature-benefits li {
+            font-size: 14px;
+            color: #555;
+            padding: 4px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .feature-benefits li::before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+        }
+        
+        .demo-section {
+            background: white;
+            border-radius: 25px;
+            padding: 50px;
+            margin: 50px 0;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .demo-title {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .demo-card {
+            background: #f8f9ff;
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .demo-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .demo-screen {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .demo-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .view-demo-btn {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .view-demo-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        .revolutionary-impact {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 25px;
+            padding: 50px;
+            margin: 50px 0;
+            text-align: center;
+        }
+        
+        .impact-title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .impact-stat {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+        }
+        
+        .impact-value {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .impact-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .cta-section {
+            text-align: center;
+            margin: 50px 0;
+        }
+        
+        .cta-title {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .cta-subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 30px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.5);
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+            
+            .comparison-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧠 AI-First Tennis Logging</h1>
+        <div class="ai-badge">🚀 ZERO SETUP REVOLUTION</div>
+        <p class="subtitle">The first tennis app that truly eliminates setup friction</p>
+        <div class="revolution-statement">
+            "Just speak naturally while you play - AI figures out everything else"
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="comparison-section">
+            <h2 class="comparison-title">🔥 Revolutionary Difference</h2>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card old-way">
+                    <div class="comparison-icon">😤</div>
+                    <div class="comparison-label">Traditional Apps</div>
+                    <div class="comparison-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <span>Enter player names manually</span>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <span>Select match format from menus</span>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <span>Configure scoring system</span>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <span>Set up court, weather, etc.</span>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">5</div>
+                            <span>Manually tap every point detail</span>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">6</div>
+                            <span>Finally start playing tennis</span>
+                        </div>
+                    </div>
+                    <div class="comparison-time">Setup Time: 3-5 minutes</div>
+                </div>
+                
+                <div class="comparison-card new-way">
+                    <div class="comparison-icon">🚀</div>
+                    <div class="comparison-label">AI-First Approach</div>
+                    <div class="comparison-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <span>Open app, tap "Start AI Logging"</span>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <span>Start playing and speaking naturally</span>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <span>AI detects everything automatically</span>
+                        </div>
+                    </div>
+                    <div class="comparison-time">Setup Time: 5 seconds</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ai-features-showcase">
+            <div class="feature-card">
+                <span class="feature-icon">🧠</span>
+                <h3 class="feature-title">Intelligent Player Detection</h3>
+                <p class="feature-description">
+                    AI listens to your natural speech and automatically identifies player names, 
+                    even distinguishing between nicknames and full names.
+                </p>
+                <div class="feature-benefits">
+                    <ul>
+                        <li>Works with any names or nicknames</li>
+                        <li>Handles multiple languages</li>
+                        <li>Voice pattern recognition</li>
+                        <li>95%+ accuracy within 5 minutes</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <span class="feature-icon">🎯</span>
+                <h3 class="feature-title">Format Auto-Detection</h3>
+                <p class="feature-description">
+                    Automatically infers match format (best of 3/5, pro set) and scoring system 
+                    from contextual clues in your commentary.
+                </p>
+                <div class="feature-benefits">
+                    <ul>
+                        <li>Best of 3, 5, pro sets supported</li>
+                        <li>Standard vs no-ad scoring</li>
+                        <li>Adapts mid-match if rules change</li>
+                        <li>No manual configuration needed</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <span class="feature-icon">🎤</span>
+                <h3 class="feature-title">Natural Speech Processing</h3>
+                <p class="feature-description">
+                    Advanced NLP understands tennis-specific vocabulary and extracts detailed 
+                    point information from your natural commentary.
+                </p>
+                <div class="feature-benefits">
+                    <ul>
+                        <li>Recognizes aces, winners, errors</li>
+                        <li>Understands shot types and directions</li>
+                        <li>Processes excitement and emphasis</li>
+                        <li>Continuous learning from your speech</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <span class="feature-icon">⚡</span>
+                <h3 class="feature-title">Real-Time Intelligence</h3>
+                <p class="feature-description">
+                    Processes audio in real-time with confidence scoring, providing smart 
+                    suggestions only when needed.
+                </p>
+                <div class="feature-benefits">
+                    <ul>
+                        <li>90%+ confidence = auto-log</li>
+                        <li>70-89% = soft confirmation</li>
+                        <li>Sub-second processing time</li>
+                        <li>Non-disruptive suggestions</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <span class="feature-icon">🎓</span>
+                <h3 class="feature-title">Contextual Learning</h3>
+                <p class="feature-description">
+                    AI learns your playing patterns, vocabulary, and preferences to become 
+                    more accurate with every match.
+                </p>
+                <div class="feature-benefits">
+                    <ul>
+                        <li>Remembers frequent opponents</li>
+                        <li>Learns your tennis terminology</li>
+                        <li>Adapts to your voice patterns</li>
+                        <li>Gets smarter over time</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <span class="feature-icon">🛡️</span>
+                <h3 class="feature-title">Privacy-First AI</h3>
+                <p class="feature-description">
+                    All AI processing happens on your device. No audio data is sent to 
+                    external servers, ensuring complete privacy.
+                </p>
+                <div class="feature-benefits">
+                    <ul>
+                        <li>100% local processing</li>
+                        <li>No cloud dependencies</li>
+                        <li>Your voice stays private</li>
+                        <li>Works offline completely</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2 class="demo-title">📱 Experience the Magic</h2>
+            <p style="font-size: 18px; color: #666; margin-bottom: 40px;">
+                See how AI-first logging transforms the tennis tracking experience
+            </p>
+            
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <div class="demo-number">1</div>
+                    <div class="demo-screen">Instant Start</div>
+                    <div class="demo-description">
+                        One-tap launch directly into AI logging. No setup screens, no forms, 
+                        no configuration. Just pure tennis.
+                    </div>
+                    <a href="instant_start_screen.html" class="view-demo-btn" target="_blank">
+                        View Demo →
+                    </a>
+                </div>
+                
+                <div class="demo-card">
+                    <div class="demo-number">2</div>
+                    <div class="demo-screen">AI Live Logging</div>
+                    <div class="demo-description">
+                        Watch AI detect players, format, and points in real-time from natural speech. 
+                        Progressive intelligence that learns as you play.
+                    </div>
+                    <a href="ai_live_logging.html" class="view-demo-btn" target="_blank">
+                        View Demo →
+                    </a>
+                </div>
+                
+                <div class="demo-card">
+                    <div class="demo-number">3</div>
+                    <div class="demo-screen">Smart Match Summary</div>
+                    <div class="demo-description">
+                        AI-generated insights and analysis based on your voice commentary. 
+                        Deeper understanding than manual tracking could ever provide.
+                    </div>
+                    <a href="ai_match_summary.html" class="view-demo-btn" target="_blank">
+                        View Demo →
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="revolutionary-impact">
+            <h2 class="impact-title">🚀 Revolutionary Impact</h2>
+            <p style="font-size: 18px; opacity: 0.9; margin-bottom: 40px;">
+                This approach doesn't just improve tennis logging - it completely reimagines it
+            </p>
+            
+            <div class="impact-stats">
+                <div class="impact-stat">
+                    <div class="impact-value">98%</div>
+                    <div class="impact-label">Reduction in Setup Time</div>
+                </div>
+                <div class="impact-stat">
+                    <div class="impact-value">90%</div>
+                    <div class="impact-label">Less Manual Input Required</div>
+                </div>
+                <div class="impact-stat">
+                    <div class="impact-value">5x</div>
+                    <div class="impact-label">More Match Completions</div>
+                </div>
+                <div class="impact-stat">
+                    <div class="impact-value">∞</div>
+                    <div class="impact-label">Richer Data from Natural Speech</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <h2 class="cta-title">Ready to Experience Tennis Logging Magic?</h2>
+            <p class="cta-subtitle">
+                Be among the first to try truly zero-setup tennis match logging
+            </p>
+            <a href="instant_start_screen.html" class="cta-button" target="_blank">
+                🚀 Try AI Logging Demo
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        // Add some interactive elements
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+        });
+        
+        // Animate stats on scroll
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const stats = entry.target.querySelectorAll('.impact-value');
+                    stats.forEach((stat, index) => {
+                        setTimeout(() => {
+                            stat.style.animation = 'countUp 1s ease-out forwards';
+                        }, index * 200);
+                    });
+                }
+            });
+        }, observerOptions);
+        
+        const impactSection = document.querySelector('.revolutionary-impact');
+        if (impactSection) {
+            observer.observe(impactSection);
+        }
+        
+        // Add count-up animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes countUp {
+                from { 
+                    opacity: 0; 
+                    transform: translateY(20px); 
+                }
+                to { 
+                    opacity: 1; 
+                    transform: translateY(0); 
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

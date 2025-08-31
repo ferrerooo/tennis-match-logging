@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tennis Logger - Instant AI Logging</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .phone-container {
+            width: 375px;
+            height: 812px;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .notch {
+            width: 150px;
+            height: 25px;
+            background: black;
+            border-radius: 0 0 15px 15px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        
+        .status-bar {
+            height: 44px;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            padding: 50px 30px;
+            text-align: center;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .app-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .hero-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .zero-setup-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .main-content {
+            padding: 40px 30px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .how-it-works {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .how-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-align: left;
+        }
+        
+        .step-number {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #FF6B6B;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .step-text {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.4;
+        }
+        
+        .magic-button {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 25px 40px;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            min-width: 280px;
+            justify-content: center;
+        }
+        
+        .magic-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.5);
+        }
+        
+        .magic-button:active {
+            transform: translateY(-1px);
+        }
+        
+        .magic-icon {
+            font-size: 28px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .ai-features {
+            background: #f8f9ff;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        
+        .ai-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .ai-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .ai-item {
+            font-size: 14px;
+            color: #666;
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .ai-item::before {
+            content: '🤖';
+            font-size: 16px;
+        }
+        
+        .privacy-note {
+            background: #e8f4f8;
+            border-left: 4px solid #00C4CC;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .privacy-text {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.4;
+        }
+        
+        .recent-matches {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+        }
+        
+        .recent-title {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .recent-items {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .recent-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 12px;
+            min-width: 120px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        
+        .recent-item:hover {
+            border-color: #FF6B6B;
+            transform: translateY(-2px);
+        }
+        
+        .recent-match {
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2px;
+        }
+        
+        .recent-date {
+            font-size: 11px;
+            color: #999;
+        }
+        
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 107, 107, 0.95);
+            color: white;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .loading-icon {
+            font-size: 60px;
+            animation: spin 2s linear infinite;
+            margin-bottom: 30px;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .loading-status {
+            font-size: 16px;
+            opacity: 0.9;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .loading-tips {
+            font-size: 14px;
+            opacity: 0.8;
+            text-align: center;
+            max-width: 280px;
+            line-height: 1.4;
+        }
+        
+        .cancel-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 40px;
+        }
+        
+        .cancel-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        
+        <div class="status-bar">
+            Tennis AI Logger
+        </div>
+        
+        <div class="hero-section">
+            <div class="app-icon">🎾</div>
+            <h1 class="hero-title">Zero-Setup Tennis Logging</h1>
+            <p class="hero-subtitle">AI figures out everything from your voice</p>
+            <div class="zero-setup-badge">🤖 POWERED BY AI</div>
+        </div>
+        
+        <div class="main-content">
+            <div class="how-it-works">
+                <h2 class="how-title">How It Works</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Tap the button below</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Start playing and speaking naturally</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">AI logs everything automatically</div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="magic-button" onclick="startAILogging()">
+                <span class="magic-icon">🎤</span>
+                <span>Start AI Logging</span>
+            </button>
+            
+            <div class="ai-features">
+                <div class="ai-title">
+                    <span>🧠</span>
+                    AI Automatically Detects:
+                </div>
+                <ul class="ai-list">
+                    <li class="ai-item">Player names from your speech</li>
+                    <li class="ai-item">Match format (best of 3, 5, pro set)</li>
+                    <li class="ai-item">Scoring system (standard, no-ad)</li>
+                    <li class="ai-item">Points (aces, winners, errors)</li>
+                    <li class="ai-item">Who's serving and winning</li>
+                </ul>
+            </div>
+            
+            <div class="privacy-note">
+                <div class="privacy-text">
+                    🔒 <strong>Privacy First:</strong> All audio processing happens on your device. Nothing is sent to external servers.
+                </div>
+            </div>
+        </div>
+        
+        <div class="recent-matches">
+            <div class="recent-title">Recent AI-Logged Matches</div>
+            <div class="recent-items">
+                <div class="recent-item" onclick="loadMatch('john-mike')">
+                    <div class="recent-match">John vs Mike</div>
+                    <div class="recent-date">Yesterday</div>
+                </div>
+                <div class="recent-item" onclick="loadMatch('sarah-anna')">
+                    <div class="recent-match">Sarah vs Anna</div>
+                    <div class="recent-date">3 days ago</div>
+                </div>
+                <div class="recent-item" onclick="loadMatch('david-alex')">
+                    <div class="recent-match">David vs Alex</div>
+                    <div class="recent-date">1 week ago</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-icon">🎤</div>
+        <div class="loading-title">Starting AI Logger</div>
+        <div class="loading-status" id="loadingStatus">Initializing microphone and AI...</div>
+        <div class="loading-tips">
+            Speak naturally while you play. Say player names clearly in the first few minutes for best results.
+        </div>
+        <button class="cancel-btn" onclick="cancelLogging()">Cancel</button>
+    </div>
+    
+    <script>
+        const loadingMessages = [
+            "Initializing microphone and AI...",
+            "Loading tennis vocabulary...",
+            "Preparing speech recognition...",
+            "Setting up smart detection...",
+            "Ready to start listening!"
+        ];
+        
+        let loadingIndex = 0;
+        let loadingInterval;
+        
+        function startAILogging() {
+            // Show loading overlay
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            
+            // Simulate loading process
+            loadingIndex = 0;
+            updateLoadingMessage();
+            
+            loadingInterval = setInterval(() => {
+                loadingIndex++;
+                if (loadingIndex < loadingMessages.length) {
+                    updateLoadingMessage();
+                } else {
+                    // Transition to live logging screen
+                    completeLoading();
+                }
+            }, 1000);
+        }
+        
+        function updateLoadingMessage() {
+            document.getElementById('loadingStatus').textContent = loadingMessages[loadingIndex];
+        }
+        
+        function completeLoading() {
+            clearInterval(loadingInterval);
+            
+            // In real app, this would navigate to the AI logging screen
+            setTimeout(() => {
+                window.location.href = 'ai_live_logging.html';
+            }, 500);
+        }
+        
+        function cancelLogging() {
+            clearInterval(loadingInterval);
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+        
+        function loadMatch(matchId) {
+            // In real app, this would load a previous match
+            alert(`Loading ${matchId} match with AI-detected data`);
+        }
+        
+        // Add some interactive feedback
+        document.querySelector('.magic-button').addEventListener('mousedown', function() {
+            this.style.transform = 'scale(0.95)';
+        });
+        
+        document.querySelector('.magic-button').addEventListener('mouseup', function() {
+            this.style.transform = '';
+        });
+        
+        // Simulate different loading states
+        function simulatePermissionRequest() {
+            // In real app, this would request microphone permission
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ audio: true })
+                    .then(function(stream) {
+                        console.log('Microphone access granted');
+                    })
+                    .catch(function(error) {
+                        console.log('Microphone access denied');
+                    });
+            }
+        }
+        
+        // Initialize
+        window.addEventListener('load', function() {
+            // Add entrance animation
+            document.querySelector('.hero-section').style.animation = 'fadeInUp 0.8s ease-out';
+            document.querySelector('.main-content').style.animation = 'fadeInUp 0.8s ease-out 0.2s both';
+        });
+        
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
