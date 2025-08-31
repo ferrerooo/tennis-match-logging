@@ -8,6 +8,9 @@ Tennis Match Logger is an MVP mobile app for logging tennis matches using **audi
 
 ## Architecture
 
+## Code repo reference
+Refer to the following code repo /Users/chunyaozou/Documents/c/Go_flutter/Chapter13/13-11/ about how the project is archtectured, APIs design, data model layer, business logic layer, API layer, middleware layer etc.
+
 This is a **Flutter frontend + Go backend** project with a local-first approach:
 
 - **Frontend**: Flutter app (`/frontend/`) with cross-platform mobile support
@@ -19,9 +22,7 @@ The MVP focuses on 3 core screens:
 2. **Live Match**: Audio recording + winner buttons + AI suggestions  
 3. **Match Summary**: Final score + basic stats + audio playback
 
-## Frontend / Backend code repo reference
 
-Refer to the following code repo /Users/chunyaozou/Documents/c/Go_flutter/Chapter13/13-11/ about how the project is archtectured, APIs design, data model layer, business logic layer, API layer, middleware layer etc.
 
 ## Key Technical Decisions
 
